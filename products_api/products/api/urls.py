@@ -6,6 +6,7 @@ from .views import ProductViewSet
 
 urlpatterns = [
     path("bulk_upload/", views.UploadProductsView.as_view(), name="index"),
+    path("delete_all/", views.delete_all, name="delete_all"),
 ]
 
 router = DefaultRouter()
