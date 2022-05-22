@@ -19,4 +19,4 @@ class UploadProductsView(APIView):
             ContentFile(serializer.validated_data["uploaded_file"].read()),
         )
         ImportProductsTask.apply_async(kwargs={"path": path})
-        return Response("Uploaded successfuoly")
+        return Response("Products are being uploaded.")
