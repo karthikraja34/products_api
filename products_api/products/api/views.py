@@ -1,16 +1,11 @@
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from products_api.products.api.serializers import UploadSerializer
 from products_api.products.tasks import ImportProductsTask
-
-
-def upload_products(request):
-    return HttpResponse("Hello World")
 
 
 class UploadProductsView(APIView):
