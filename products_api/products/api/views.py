@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from products_api.products.api.serializers import UploadSerializer
+from products_api.products.api.serializers import ProductSerializer, UploadSerializer
+from products_api.products.models import Product
 from products_api.products.tasks import ImportProductsTask
 
 
@@ -20,3 +22,8 @@ class UploadProductsView(APIView):
         )
         ImportProductsTask.apply_async(kwargs={"path": path})
         return Response("Products are being uploaded.")
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
