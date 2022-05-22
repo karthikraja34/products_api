@@ -12,5 +12,5 @@ class UploadSerializer(serializers.Serializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ["name", "description", "sku", "id"]
+        fields = ["name", "description", "sku", "id", "active"]
         model = Product
