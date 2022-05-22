@@ -1,4 +1,5 @@
 import csv
+import random
 from itertools import islice
 
 from celery import Task
@@ -44,6 +45,7 @@ class ImportProductsTask(Task):
                                 name=data["name"],
                                 sku=data["sku"],
                                 description=data["description"],
+                                active=random.choice([True, False]),
                             )
                         )
 
