@@ -12,6 +12,10 @@ urlpatterns = [
         "v1/products/",
         include(("products_api.products.api.urls", "products"), namespace="products"),
     ),
+    path(
+        "v1/webhooks/",
+        include(("products_api.webhooks.api.urls", "webhooks"), namespace="webhooks"),
+    ),
 ]
 
 
