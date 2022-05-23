@@ -1,8 +1,10 @@
 import csv
+import itertools
 import random
 from itertools import islice
 
 from celery import Task
+from celery_progress.backend import ProgressRecorder
 from django.conf import settings
 
 from config.celery_app import app
@@ -13,16 +15,24 @@ class ImportProductsTask(Task):
     BATCH_SIZE = 1000
 
     def run(self, *args, **kwargs):
+        progress_recorder = ProgressRecorder(self)
         path = kwargs.get("path")
         with open(settings.MEDIA_ROOT + "/" + path) as file:
             reader = csv.reader(file)
             next(reader)
+            reader, reader_copy = itertools.tee(reader)
             products = (
                 dict(name=row[0], sku=row[1], description=row[2]) for row in reader
             )
+            total_products_count = len(list(reader_copy))
+            processed_products_count = 0
 
             while True:
                 sliced_products = list(islice(products, self.BATCH_SIZE))
+                processed_products_count += len(sliced_products)
+                progress_recorder.set_progress(
+                    processed_products_count, total_products_count
+                )
                 if not sliced_products:
                     break
 

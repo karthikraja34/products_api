@@ -80,6 +80,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "drf_spectacular",
     "django_filters",
+    "celery_progress",
 ]
 
 LOCAL_APPS = ["products_api.products"]
