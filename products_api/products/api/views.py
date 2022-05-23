@@ -44,5 +44,5 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 @api_view(["DELETE"])
 def delete_all(request):
-    Product.truncate()
+    Product.objects.truncate()
     return Response("All products are deleted", status=status.HTTP_200_OK)
