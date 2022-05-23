@@ -12,3 +12,14 @@ class Product(TimeStampedModel):
     def truncate(cls):
         with connection.cursor() as cursor:
             cursor.execute(f'TRUNCATE TABLE "{cls._meta.db_table}" CASCADE')
+
+    def serialize_hook(self, hook):
+        return {
+            "meta": hook.dict(),
+            "data": {
+                "name": self.name,
+                "sku": self.sku,
+                "description": self.description,
+                "active": self.active,
+            },
+        }

@@ -83,7 +83,7 @@ THIRD_PARTY_APPS = [
     "celery_progress",
 ]
 
-LOCAL_APPS = ["products_api.products"]
+LOCAL_APPS = ["products_api.products", "products_api.webhooks"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -298,5 +298,9 @@ SPECTACULAR_SETTINGS = {
         {"url": "https://codewithkarthik.com", "description": "Production server"},
     ],
 }
-# Your stuff...
-# ------------------------------------------------------------------------------
+
+
+WEBHOOK_EVENTS = {
+    "product.created": "products.Product.created",
+    "product.updated": "products.Product.updated",
+}
