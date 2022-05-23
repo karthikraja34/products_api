@@ -3,11 +3,18 @@ from rest_framework import serializers
 from products_api.products.models import Product
 
 
-class UploadSerializer(serializers.Serializer):
-    uploaded_file = serializers.FileField(required=True)
+class PresignedURLInputSerializer(serializers.Serializer):
+    file_name = serializers.CharField(required=True)
 
     class Meta:
-        fields = ["uploaded_file"]
+        fields = ["file_name"]
+
+
+class UploadSerializer(serializers.Serializer):
+    key = serializers.CharField(required=True)
+
+    class Meta:
+        fields = ["key"]
 
 
 class ProductSerializer(serializers.ModelSerializer):

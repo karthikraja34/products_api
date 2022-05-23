@@ -7,6 +7,7 @@ from .views import ProductViewSet
 
 urlpatterns = [
     path("bulk_upload/", views.UploadProductsView.as_view(), name="index"),
+    path("pre_signed_url/", views.AwsPreSignedUrlView.as_view(), name="pre_signed_url"),
     path("delete_all/", views.delete_all, name="delete_all"),
     path("bulk_upload_progress/<str:task_id>", get_progress, name="task_status"),
 ]
